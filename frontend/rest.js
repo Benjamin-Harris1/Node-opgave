@@ -66,7 +66,7 @@ async function deleteArtist(id) {
 function artistClicked(artist) {
   document.querySelector("#dialog-update-artist").showModal();
 
-  artistClicked = artist;
+  const artistClicked = artist;
 
   const form = document.querySelector("#form-update-artist");
 
@@ -79,7 +79,7 @@ function artistClicked(artist) {
   form.shortDescription.value = artist.shortDescription;
   form.image.value = artist.image;
 
-  document.querySelector("#form-update-artist").addEventListener("submit", updateArtist);
+  document.querySelector("#form-update-artist").addEventListener("submit", () => updateArtist);
 }
 
 async function updateArtist(event) {

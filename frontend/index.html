@@ -12,21 +12,21 @@
   <body>
     <header>
       <nav>
-        <a href="index.html" class="active">Medlemmer</a>
+        <a href="index.html" class="active">Artists</a>
       </nav>
     </header>
     <div class="filter-grid">
       <div>
-        <button id="create-artist-btn">Opret medlem</button>
+        <button id="create-artist-btn">Add artist</button>
       </div>
       <div>
         <label for="searchbar"></label>
         <input type="search" id="searchbar" placeholder="Søg efter ..." />
       </div>
       <div>
-        <label for="sort">Filtrer:</label>
+        <label for="sort">Filter:</label>
         <select id="sortByTeam" class="sort">
-          <option value="" selected>Hold</option>
+          <option value="" selected>Genre</option>
           <option value="junior">Junior hold</option>
           <option value="senior">Senior hold</option>
         </select>
@@ -121,7 +121,7 @@
         <label for="label">Label:</label>
         <input type="text" id="update-label" name="label" placeholder="Update label of artist" />
         <label for="website">Website:</label>
-        <input type="url" id="update-website" name="webiste" placeholder="Update website of artist" />
+        <input type="url" id="update-website" name="website" placeholder="Update website of artist" />
         <label for="update-image">Image: </label>
         <input type="url" id="update-image" name="image" placeholder="Paste IMG URL here" required />
         <label for="shortDescription">Short description</label>

@@ -11,7 +11,7 @@ async function initApp() {
   //document.querySelector("#searchbar").addEventListener("search", inputSearchChanged);
 
   document.querySelector("#create-artist-btn").addEventListener("click", showCreateUserDialog);
-  document.querySelector("#form-create-artist").addEventListener("submit", createArtistClicked);
+  document.querySelector("#form-create-artist").addEventListener("submit", createArtist);
   //document.querySelector("#sortByRole").addEventListener("change", filterByMemberRoles);
 
   //document.querySelector("#sortByTeam").addEventListener("change", teamSelect);
