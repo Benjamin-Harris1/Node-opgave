@@ -9,5 +9,26 @@
     "website": "https://pearljam.com/",
     "image": "https://gaffa.blob.core.windows.net/gaffa-media/media/78da8170-bc0c-4a4c-a498-737e00f36bfa/EddieVedderUdgiverForsteSingleFraKommendeSoloalbum-default.webp",
     "shortDescription": "Known for Pearl Jam etc."
+  },
+  {
+    "id": 2,
+    "name": "Van Halen",
+    "birthdate": 2002,
+    "activeSince": 19,
+    "genres": "Rock",
+    "labels": "Pas",
+    "website": "https://pearljam.com/",
+    "image": "https://gaffa.blob.core.windows.net/gaffa-media/media/78da8170-bc0c-4a4c-a498-737e00f36bfa/EddieVedderUdgiverForsteSingleFraKommendeSoloalbum-default.webp",
+    "shortDescription": "Known for Pearl Jam etc."
+  },
+  {
+    "birthdate": "asd",
+    "activeSince": "asd",
+    "label": "asd",
+    "website": "https://www.twitch.tv/lolworldchampionship",
+    "genres": "R&B",
+    "shortDescription": "asd",
+    "image": "https://media.contentapi.ea.com/content/dam/apex-legends/images/2019/01/apex-featured-image-16x9.jpg.adapt.crop16x9.1023w.jpg",
+    "id": 1693953823164
   }
 ]

@@ -2,7 +2,7 @@
 
 window.addEventListener("load", initApp);
 
-import { updateArtistGrid, createArtist, deleteArtist, artistClicked, updateArtist } from "./rest.js";
+import { updateArtistGrid, createArtist, deleteArtist, selectArtist, updateArtist } from "./rest.js";
 
 async function initApp() {
   console.log("js is working");
@@ -12,6 +12,7 @@ async function initApp() {
 
   document.querySelector("#create-artist-btn").addEventListener("click", showCreateUserDialog);
   document.querySelector("#form-create-artist").addEventListener("submit", createArtist);
+
   //document.querySelector("#sortByRole").addEventListener("change", filterByMemberRoles);
 
   //document.querySelector("#sortByTeam").addEventListener("change", teamSelect);
@@ -40,26 +41,6 @@ function filterList() {
 
 function showCreateUserDialog() {
   document.querySelector("#dialog-create-artist").showModal();
-}
-
-async function createArtistClicked(event) {
-  const form = event.target;
-  const name = form.name.value;
-  const birthdate = form.birthdate.value;
-  const activesince = form.activeSince.value;
-  const genres = form.genres.value;
-  const website = form.website.value;
-  const shortDescription = form.shortDescription.value;
-  const image = form.image.value;
-  form.reset();
-  const response = await createArtist(name, birthdate, activesince, genres, website, shortDescription, image);
-  if (response.ok) {
-    showSnackbar("Bruger oprettet");
-    updateArtistGrid();
-  } else {
-    console.log(response.status, response.statusText);
-    showSnackbar("Noget gik galt. Prøv igen");
-  }
 }
 
 function showArtists(artists) {

@@ -17,8 +17,8 @@ app.get("/", (request, response) => {
 app.get("/artists", async (request, response) => {
   const data = await fs.readFile("data.json");
   const artists = JSON.parse(data);
-  const sortedData = artists.sort((a, b) => a.name.localeCompare(b.name));
-  response.json(sortedData);
+  //const sortedData = artists.sort((a, b) => a.name.localeCompare(b.name));
+  response.json(artists);
 });
 
 app.get("/artists/:id", async (request, response) => {
@@ -28,4 +28,28 @@ app.get("/artists/:id", async (request, response) => {
   const artists = JSON.parse(data);
   const result = artists.find((artist) => artist.id == artistId);
   response.json(result);
+});
+
+app.post("/artists", async (request, response) => {
+  console.log(request.body);
+  const artist = request.body;
+  artist.id = new Date().getTime();
+  const data = await fs.readFile("data.json");
+  const artists = JSON.parse(data);
+  artists.push(artist);
+  fs.writeFile("data.json", JSON.stringify(artists));
+  response.json(artists);
+});
+
+app.put("/artists", async (request, response) => {});
+
+app.delete("/artists/:id", async (request, response) => {
+  const id = request.params.id;
+  console.log(id);
+  const data = await fs.readFile("data.json");
+  const artists = JSON.parse(data);
+
+  const newArtist = artists.filter((artist) => artist.id != id);
+  fs.writeFile("data.json", JSON.stringify(newArtist));
+  response.json(artists);
 });
