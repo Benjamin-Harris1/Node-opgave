@@ -58,7 +58,6 @@ app.put("/artists/:id", async (request, response) => {
   updatedArtists.image = body.image;
   updatedArtists.shortDescription = body.shortDescription;
 
-  console.log(artists);
   fs.writeFile("data.json", JSON.stringify(artists));
   response.json(artists);
 });
