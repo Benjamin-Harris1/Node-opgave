@@ -41,7 +41,27 @@ app.post("/artists", async (request, response) => {
   response.json(artists);
 });
 
-app.put("/artists", async (request, response) => {});
+app.put("/artists/:id", async (request, response) => {
+  const id = request.params.id;
+  const data = await fs.readFile("data.json");
+  const artists = JSON.parse(data);
+
+  let updatedArtists = artists.find((artist) => artist.id == id);
+
+  const body = request.body;
+  updatedArtists.name = body.name;
+  updatedArtists.birthdate = body.birthdate;
+  updatedArtists.activeSince = body.activeSince;
+  updatedArtists.genres = body.genres;
+  updatedArtists.labels = body.labels;
+  updatedArtists.website = body.website;
+  updatedArtists.image = body.image;
+  updatedArtists.shortDescription = body.shortDescription;
+
+  console.log(artists);
+  fs.writeFile("data.json", JSON.stringify(artists));
+  response.json(artists);
+});
 
 app.delete("/artists/:id", async (request, response) => {
   const id = request.params.id;

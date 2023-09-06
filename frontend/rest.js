@@ -22,7 +22,7 @@ async function readArtists() {
 
 async function createArtist(event) {
   event.preventDefault();
-  console.log("Create");
+
   const form = event.target;
   const name = form.name.value;
   const birthdate = form.birthdate.value;
@@ -30,8 +30,8 @@ async function createArtist(event) {
   const labels = form.labels.value;
   const website = form.website.value;
   const genres = form.genres.value;
-  const shortDescription = form.shortDescription.value;
   const image = form.image.value;
+  const shortDescription = form.shortDescription.value;
 
   const newArtist = {
     name,
@@ -40,8 +40,8 @@ async function createArtist(event) {
     labels,
     website,
     genres,
-    shortDescription,
     image,
+    shortDescription,
   };
 
   const artistJSON = JSON.stringify(newArtist);
@@ -98,7 +98,7 @@ async function updateArtist(event) {
   // update user
   const artistToUpdate = { name, birthdate, activeSince, genres, labels, website, image, shortDescription };
   const artistAsJson = JSON.stringify(artistToUpdate);
-  const response = await fetch(`${endpoint}/users/${selectedArtist.id}`, {
+  const response = await fetch(`${endpoint}/artists/${selectedArtist.id}`, {
     method: "PUT",
     body: artistAsJson,
     headers: { "Content-Type": "application/json" },
