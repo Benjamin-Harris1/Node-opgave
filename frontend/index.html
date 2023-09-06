@@ -27,11 +27,12 @@
         <label for="sort">Filter:</label>
         <select id="sortByGenre" class="sort">
           <option value="genre" selected>Genre</option>
-          <option value="grunge">Grunge</option>
-          <option value="rock">Rock</option>
-          <option value="r&b">R&B</option>
-          <option value="rap">Rap</option>
-          <option value="soul">Soul</option>
+          <option value="Grunge">Grunge</option>
+          <option value="Rock">Rock</option>
+          <option value="R&B">R&B</option>
+          <option value="Rap">Rap</option>
+          <option value="Soul">Soul</option>
+          <option value="Pop">Pop</option>
         </select>
         <label for="sort"></label>
         <select id="sortByFavorite" class="sort">
@@ -55,12 +56,15 @@
       </form>
       <section class="dialog-grid">
         <section>
-          <h3><strong>Medlemsinfo</strong></h3>
+          <h3><strong>About the artist</strong></h3>
           <img id="dialog-image" />
           <h4 id="dialog-name">Navn</h4>
           <h4 id="dialog-genre">Genre</h4>
           <ul>
-            <li>Medlemsskab: <span id="dialog-birthdate"></span></li>
+            <li><span id="dialog-birthdate"></span></li>
+            <li><span id="dialog-shortDescription"></span></li>
+            <li><span id="dialog-labels"></span></li>
+            <li>Favorite: <span id="dialog-favorite"></span></li>
           </ul>
         </section>
       </section>

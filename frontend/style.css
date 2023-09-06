@@ -3,7 +3,7 @@
 body {
   margin: 0;
   font-size: 1.2em;
-  background-image: url(https://wallpapers.com/images/featured/am94qlj0a89gmo8j.jpg);
+  background-image: url(https://w0.peakpx.com/wallpaper/121/814/HD-wallpaper-music-cd-compact-disc-music-cd-box-thumbnail.jpg);
   background-repeat: repeat;
 }
 a {
@@ -43,7 +43,7 @@ img {
 header {
   border-bottom: 2px solid black;
   box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
-  background: linear-gradient(to bottom, #87ceeb, #0066cc);
+  background: linear-gradient(to bottom, #686867, #262921);
   padding: 2em;
   display: flex;
   grid-template-columns: 1fr;
@@ -58,7 +58,7 @@ header {
 /* footer styling */
 
 footer {
-  background: linear-gradient(to top, #87ceeb, #0066cc);
+  background: linear-gradient(to bottom, #686867, #262921);
   color: var(--text-color-dark);
   padding: 1em;
   text-align: center;
@@ -163,7 +163,7 @@ main {
 .grid-item {
   box-shadow: 1px 1px 8px var(--navy);
   padding: 1.5em;
-  background-color: hsla(200, 84%, 71%, 0.9);
+  background-color: hsl(180, 1%, 34%);
   transition: 0.5s;
   animation: fadeIn 0.5s;
   border-radius: 15%;
@@ -171,7 +171,7 @@ main {
 .grid-item-2 {
   box-shadow: 1px 1px 8px var(--navy);
   padding: 1.5em;
-  background-color: hsla(200, 84%, 71%, 0.9);
+  background-color: hsl(180, 1%, 34%);
   transition: 0.5s;
   animation: fadeIn 0.5s;
   border-radius: 2.5%;
@@ -187,7 +187,7 @@ main {
 .grid-item-user {
   box-shadow: 1px 1px 8px;
   padding: 0.85em;
-  background-color: hsla(200, 84%, 71%, 0.9);
+  background-color: hsla(210, 2%, 56%, 0.9);
   transition: 0.5s;
   animation: fadeIn 0.5s;
   border-radius: 1em;
@@ -273,7 +273,9 @@ main {
 #btn-no,
 #btn-yes,
 .btn-delete,
-.btn-update {
+.btn-update,
+.btn-favorite,
+.btn-notfavorite {
   font-weight: 300;
   font-size: 0.8em;
   text-align: center;
@@ -290,13 +292,13 @@ main {
   border: 2px solid black;
 }
 
-#create-user-btn {
+#create-artist-btn {
   font-weight: 300;
   font-size: 0.8em;
   text-align: center;
   cursor: pointer;
   border: 2px solid;
-  background-color: hsla(200, 84%, 71%, 0.75);
+  background-color: hsl(180, 1%, 34%);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   padding: 0.5em 1em;
@@ -334,7 +336,7 @@ header button {
   padding: 1em;
   border: 2px solid black;
   background: var(--white);
-  background-color: hsla(200, 84%, 71%, 0.4);
+  background-color: hsl(180, 1%, 34%);
 }
 
 dialog input,
@@ -357,14 +359,14 @@ select {
 .sort {
   border: 2px solid black;
   margin-left: 0;
-  background-color: hsla(200, 84%, 71%, 0.75);
+  background-color: hsl(180, 1%, 34%);
 }
 
 /* dialog styling */
 
 dialog {
   border-color: var(--navy);
-  background: linear-gradient(to bottom, #87ceeb, #0066cc);
+  background-color: hsl(180, 1%, 34%);
   position: fixed;
   top: 90vh;
   max-height: 88vh;
@@ -410,6 +412,15 @@ button.btn-delete:hover {
 button.btn-update:hover {
   background-color: rgb(96, 241, 149);
   box-shadow: 0 4px 8px 2px;
+}
+
+button.btn-favorite:hover {
+  background-color: rgb(96, 241, 149);
+  box-shadow: 0 4px 8px 2px;
+}
+
+button.btn-notfavorite:hover {
+  background-color: #ea5045;
 }
 
 #create-user-btn:hover,

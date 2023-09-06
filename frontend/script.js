@@ -4,10 +4,6 @@ window.addEventListener("load", initApp);
 
 import { updateArtistGrid, createArtist, deleteArtist, selectArtist, readArtists, updateFavorite } from "./rest.js";
 
-let artists = await readArtists();
-let genreOption = "genre";
-let favoriteOption = "notchosen";
-
 async function initApp() {
   console.log(artists);
   await updateArtistGrid();
@@ -24,6 +20,12 @@ async function initApp() {
   document.querySelector("#sortByGenre").addEventListener("change", filterByGenre);
   document.querySelector("#sortByFavorite").addEventListener("change", filterByFavorite);
 }
+
+// Global variables
+let artists = await readArtists();
+let genreOption = "genre";
+let favoriteOption = "notchosen";
+
 // FAVORITE
 function addToFavorite(artist) {
   artist.favorite = true;
@@ -90,7 +92,7 @@ function showArtists(artists) {
   <h3>${artist.name} </h3>
   <p>${artist.birthdate}</p>
 <p>${artist.genres}</p>
-<p>${artist.shortDescription}</p>
+
 
   <div class="btns">
   <button class="btn-update">Update</button>
@@ -114,6 +116,9 @@ function showUserModal(artist) {
   document.querySelector("#dialog-name").textContent = artist.name;
   document.querySelector("#dialog-genre").textContent = artist.genre;
   document.querySelector("#dialog-birthdate").textContent = artist.birthdate;
+  document.querySelector("#dialog-labels").textContent = artist.labels;
+  document.querySelector("#dialog-favorite").textContent = artist.favorite;
+  document.querySelector("#dialog-shortDescription").textContent = artist.shortDescription;
   document.querySelector("#dialog-image").src = artist.image;
   // show dialog
   document.querySelector("#dialog-artist-info").showModal();
