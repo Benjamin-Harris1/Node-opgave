@@ -2,49 +2,86 @@
 
 window.addEventListener("load", initApp);
 
-import { updateArtistGrid, createArtist, deleteArtist, updateArtist, selectArtist } from "./rest.js";
+import { updateArtistGrid, createArtist, deleteArtist, selectArtist, readArtists, updateFavorite } from "./rest.js";
+
+let artists = await readArtists();
+let genreOption = "genre";
+let favoriteOption = "notchosen";
 
 async function initApp() {
-  console.log("js is working");
+  console.log(artists);
   await updateArtistGrid();
-  //document.querySelector("#searchbar").addEventListener("keyup", inputSearchChanged);
-  //document.querySelector("#searchbar").addEventListener("search", inputSearchChanged);
 
+  // SEARCH
+  document.querySelector("#searchbar").addEventListener("keyup", inputSearchChanged);
+  document.querySelector("#searchbar").addEventListener("search", inputSearchChanged);
+
+  // CREATE
   document.querySelector("#create-artist-btn").addEventListener("click", showCreateUserDialog);
   document.querySelector("#form-create-artist").addEventListener("submit", createArtist);
 
-  //document.querySelector("#sortByRole").addEventListener("change", filterByMemberRoles);
-
-  //document.querySelector("#sortByTeam").addEventListener("change", teamSelect);
+  // SORT
+  document.querySelector("#sortByGenre").addEventListener("change", filterByGenre);
+  document.querySelector("#sortByFavorite").addEventListener("change", filterByFavorite);
+}
+// FAVORITE
+function addToFavorite(artist) {
+  artist.favorite = true;
+  updateFavorite(artist);
 }
 
-// Search
-/*function inputSearchChanged(event) {
+function removeFromFavorite(artist) {
+  artist.favorite = false;
+  updateFavorite(artist);
+}
+
+// SEARCH
+function inputSearchChanged(event) {
   const input = event.target.value;
-  const listOfUsers = searchUsers(input);
-  showUsers(listOfUsers);
+  const listOfArtists = searchUsers(input);
+  showArtists(listOfArtists);
 }
 
 function searchUsers(search) {
   search = search.toLowerCase().trim();
-  console.log(search);
-  const results = users.filter((user) => user.firstName.toLowerCase().trim().includes(search) || user.lastName.toLowerCase().trim().includes(search));
-  return results;
+  return artists.filter((artist) => artist.name.toLowerCase().trim().includes(search) || artist.genres.toLowerCase().trim().includes(search));
 }
 
-function filterList() {
-  const filteredList = getAllRole(users, filterOption);
-  const filteredTeamList = filterByTeam(filteredList);
+// FILTER AND SORT
+function filterByGenre(event) {
+  genreOption = event.target.value;
+  if (genreOption === "genre") {
+    // Reset the genre filter, and update the artist grid with all artists.
+    genreOption = "genre";
+    updateArtistGrid();
+  } else {
+    // Filter the artists based on the selected genre.
+    const filteredArtists = artists.filter((artist) => artist.genres === genreOption);
+    showArtists(filteredArtists);
+  }
+}
 
-  return filteredTeamList;
-}*/
+function filterByFavorite(event) {
+  favoriteOption = event.target.value;
+  console.log(favoriteOption);
+  if (favoriteOption === "notchosen") {
+    // Reset the filter, and update the artist grid with all artists
+    favoriteOption = "notchosen";
+    updateArtistGrid();
+  } else {
+    const isFavorite = favoriteOption === "true";
 
+    const filteredArtists = artists.filter((artist) => artist.favorite == isFavorite);
+    showArtists(filteredArtists);
+  }
+}
+
+// SHOW
 function showCreateUserDialog() {
   document.querySelector("#dialog-create-artist").showModal();
 }
 
 function showArtists(artists) {
-  console.log(artists);
   document.querySelector("#artists").innerHTML = "";
   for (const artist of artists) {
     const html = /*html*/ `
@@ -56,9 +93,10 @@ function showArtists(artists) {
 <p>${artist.shortDescription}</p>
 
   <div class="btns">
-  <button class="btn-favorite">Mark as favorite</button>
   <button class="btn-update">Update</button>
   <button class="btn-delete">Delete</button>
+  <button class="btn-favorite">Mark as favorite</button>
+  <button class="btn-notfavorite" data-id="${artist.id}">Remove from favorites</button>
   </div>
 </article>
 `;
@@ -66,35 +104,22 @@ function showArtists(artists) {
     document.querySelector("#artists").insertAdjacentHTML("beforeend", html);
     document.querySelector("#artists article:last-child .btn-delete").addEventListener("click", () => deleteClicked(artist));
     document.querySelector("#artists article:last-child .btn-update").addEventListener("click", () => selectArtist(artist));
+    document.querySelector("#artists article:last-child .btn-favorite").addEventListener("click", () => addToFavorite(artist));
+    document.querySelector("#artists article:last-child .btn-notfavorite").addEventListener("click", () => removeFromFavorite(artist));
     document.querySelector("#artists article:last-child img").addEventListener("click", () => showUserModal(artist));
   }
 }
 
-/*function filterByMemberRoles(event) {
-  const role = event.target.value;
-  filterOption = role;
-  console.log(filterOption);
-  updateArtistGrid();
+function showUserModal(artist) {
+  document.querySelector("#dialog-name").textContent = artist.name;
+  document.querySelector("#dialog-genre").textContent = artist.genre;
+  document.querySelector("#dialog-birthdate").textContent = artist.birthdate;
+  document.querySelector("#dialog-image").src = artist.image;
+  // show dialog
+  document.querySelector("#dialog-artist-info").showModal();
 }
 
-function filterByTeam(list) {
-  console.log(list);
-  if (teamOption != "") {
-    const filterTeam = list.filter(function (user) {
-      return user.subscription == teamOption;
-    });
-    console.log(filterTeam);
-    return filterTeam;
-  } else return list;
-}
-
-function teamSelect(event) {
-  teamOption = event.target.value;
-
-  update;
-  console.log(teamOption);
-}*/
-
+//DELETE
 function deleteClicked(artist) {
   console.log("Knappen Virker");
   document.querySelector("#dialog-delete-artist").showModal();
@@ -122,13 +147,4 @@ async function deleteUserClicked(event) {
   document.querySelector("#dialog-delete-artist").close();
 }
 
-function showUserModal(artist) {
-  document.querySelector("#dialog-name").textContent = artist.name;
-  document.querySelector("#dialog-genre").textContent = artist.genre;
-  document.querySelector("#dialog-birthdate").textContent = artist.birthdate;
-  document.querySelector("#dialog-image").src = artist.image;
-  // show dialog
-  document.querySelector("#dialog-artist-info").showModal();
-}
-
-export { showArtists };
+export { showArtists, updateArtistGrid, filterByGenre };

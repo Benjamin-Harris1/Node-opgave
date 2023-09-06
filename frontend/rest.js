@@ -10,7 +10,6 @@ let globalArtists;
 async function updateArtistGrid() {
   const artists = await readArtists();
   globalArtists = artists;
-  //const filteredList = filterList(artists);
   showArtists(artists);
 }
 
@@ -87,10 +86,11 @@ function selectArtist(artist) {
 async function updateArtist(event) {
   event.preventDefault();
   const form = event.target;
+
   const name = form.name.value;
   const birthdate = form.birthdate.value;
   const activeSince = form.activeSince.value;
-  const genres = form.genres.textContent;
+  const genres = form.genres.value;
   const labels = form.labels.value;
   const website = form.website.value;
   const image = form.image.value;
@@ -109,4 +109,31 @@ async function updateArtist(event) {
   }
 }
 
-export { updateArtist, createArtist, deleteArtist, selectArtist, updateArtistGrid };
+async function updateFavorite(artist) {
+  console.log(artist);
+
+  const name = artist.name;
+  const birthdate = artist.birthdate;
+  const activeSince = artist.activeSince;
+  const genres = artist.genres;
+  const labels = artist.labels;
+  const website = artist.website;
+  const image = artist.image;
+  const shortDescription = artist.shortDescription;
+  const favorite = artist.favorite;
+
+  const favoriteToUpdate = { name, birthdate, activeSince, genres, labels, website, image, shortDescription, favorite };
+
+  const favoriteAsJson = JSON.stringify(favoriteToUpdate);
+  const response = await fetch(`${endpoint}/artists/${artist.id}`, {
+    method: "PUT",
+    body: favoriteAsJson,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (response.ok) {
+    updateArtistGrid();
+  }
+}
+export { updateArtist, createArtist, deleteArtist, selectArtist, updateArtistGrid, readArtists, updateFavorite };

@@ -48,6 +48,10 @@ app.put("/artists/:id", async (request, response) => {
 
   let updatedArtists = artists.find((artist) => artist.id == id);
 
+  if (request.body.favorite !== undefined) {
+    updatedArtists.favorite = request.body.favorite;
+  }
+
   const body = request.body;
   updatedArtists.name = body.name;
   updatedArtists.birthdate = body.birthdate;
@@ -59,7 +63,7 @@ app.put("/artists/:id", async (request, response) => {
   updatedArtists.shortDescription = body.shortDescription;
 
   fs.writeFile("data.json", JSON.stringify(artists));
-  response.json(artists);
+  response.json(updatedArtists);
 });
 
 app.delete("/artists/:id", async (request, response) => {

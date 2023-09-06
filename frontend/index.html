@@ -25,17 +25,19 @@
       </div>
       <div>
         <label for="sort">Filter:</label>
-        <select id="sortByTeam" class="sort">
-          <option value="" selected>Genre</option>
-          <option value="junior">Junior hold</option>
-          <option value="senior">Senior hold</option>
+        <select id="sortByGenre" class="sort">
+          <option value="genre" selected>Genre</option>
+          <option value="grunge">Grunge</option>
+          <option value="rock">Rock</option>
+          <option value="r&b">R&B</option>
+          <option value="rap">Rap</option>
+          <option value="soul">Soul</option>
         </select>
         <label for="sort"></label>
-        <select id="sortByRole" class="sort">
-          <option value="alle" selected>Medlemsstatus</option>
-          <option value="svømmer">Svømmere</option>
-          <option value="elitesvømmer">Elitesvømmere</option>
-          <option value="træner">Trænere</option>
+        <select id="sortByFavorite" class="sort">
+          <option value="notchosen" selected>Sort by name</option>
+          <option value="true">Favorite</option>
+          <option value="false">Not favorite</option>
         </select>
       </div>
     </div>
@@ -103,9 +105,6 @@
         <button id="dialog-close-btn">X</button>
       </form>
       <h2>Update artist</h2>
-      <form id="form-update" method="dialog">
-        <button id="dialog-close-btn">X</button>
-      </form>
       <form id="form-update-artist">
         <label for="name">Name:</label>
         <input type="text" id="update-name" name="name" placeholder="Update name of artist" required />
