@@ -4,8 +4,12 @@ const endpoint = "http://localhost:3000";
 
 import { showArtists } from "./script.js";
 
+let selectedArtist;
+let globalArtists;
+
 async function updateArtistGrid() {
   const artists = await readArtists();
+  globalArtists = artists;
   //const filteredList = filterList(artists);
   showArtists(artists);
 }
@@ -23,7 +27,7 @@ async function createArtist(event) {
   const name = form.name.value;
   const birthdate = form.birthdate.value;
   const activeSince = form.activeSince.value;
-  const label = form.label.value;
+  const labels = form.labels.value;
   const website = form.website.value;
   const genres = form.genres.value;
   const shortDescription = form.shortDescription.value;
@@ -33,7 +37,7 @@ async function createArtist(event) {
     name,
     birthdate,
     activeSince,
-    label,
+    labels,
     website,
     genres,
     shortDescription,
@@ -64,16 +68,20 @@ async function deleteArtist(id) {
 
 // TJEK LIGE MERE OP PÅ DEN HER
 function selectArtist(artist) {
-  selectedUser = artist;
+  document.querySelector("#dialog-update-artist").showModal();
+  // Set global varaiable
+  selectedArtist = artist;
   const form = document.querySelector("#form-update-artist");
   form.name.value = artist.name;
   form.birthdate.value = artist.birthdate;
   form.activeSince.value = artist.activeSince;
   form.genres.value = artist.genres;
-  form.label.value = artist.label;
+  form.labels.value = artist.labels;
   form.website.value = artist.website;
-  form.shortDescription.value = artist.shortDescription;
   form.image.value = artist.image;
+  form.shortDescription.value = artist.shortDescription;
+
+  document.querySelector("#form-update-artist").addEventListener("submit", updateArtist);
 }
 
 async function updateArtist(event) {
@@ -82,20 +90,21 @@ async function updateArtist(event) {
   const name = form.name.value;
   const birthdate = form.birthdate.value;
   const activeSince = form.activeSince.value;
-  const genres = form.genres.value;
-  const label = form.label.value;
+  const genres = form.genres.textContent;
+  const labels = form.labels.value;
   const website = form.website.value;
-  const shortDescription = form.shortDescription.value;
   const image = form.image.value;
+  const shortDescription = form.shortDescription.value;
   // update user
-  const artistToUpdate = { name, birthdate, activeSince, genres, label, website, shortDescription, image };
+  const artistToUpdate = { name, birthdate, activeSince, genres, labels, website, image, shortDescription };
   const artistAsJson = JSON.stringify(artistToUpdate);
-  const response = await fetch(`${endpoint}/users/${selectedUser.id}`, {
+  const response = await fetch(`${endpoint}/users/${selectedArtist.id}`, {
     method: "PUT",
     body: artistAsJson,
     headers: { "Content-Type": "application/json" },
   });
   if (response.ok) {
+    // if success, update the users grid
     updateArtistGrid();
   }
 }

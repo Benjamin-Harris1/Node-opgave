@@ -2,7 +2,7 @@
 
 window.addEventListener("load", initApp);
 
-import { updateArtistGrid, createArtist, deleteArtist, selectArtist, updateArtist } from "./rest.js";
+import { updateArtistGrid, createArtist, deleteArtist, updateArtist, selectArtist } from "./rest.js";
 
 async function initApp() {
   console.log("js is working");
@@ -65,7 +65,7 @@ function showArtists(artists) {
 
     document.querySelector("#artists").insertAdjacentHTML("beforeend", html);
     document.querySelector("#artists article:last-child .btn-delete").addEventListener("click", () => deleteClicked(artist));
-    document.querySelector("#artists article:last-child .btn-update").addEventListener("click", () => updateClicked(artist));
+    document.querySelector("#artists article:last-child .btn-update").addEventListener("click", () => selectArtist(artist));
     document.querySelector("#artists article:last-child img").addEventListener("click", () => showUserModal(artist));
   }
 }
@@ -94,43 +94,6 @@ function teamSelect(event) {
   update;
   console.log(teamOption);
 }*/
-
-function updateClicked(artist) {
-  document.querySelector("#dialog-update-artist").showModal();
-  document.querySelector("#update-name").value = artist.name;
-  document.querySelector("#update-birthdate").value = artist.birthdate;
-  document.querySelector("#update-activeSince").value = artist.activeSince;
-  document.querySelector("#update-genres").value = artist.genres;
-  document.querySelector("#update-label").value = artist.label;
-  document.querySelector("#update-website").value = artist.website;
-  document.querySelector("#update-image").value = artist.image;
-  document.querySelector("#update-shortDescription").value = artist.shortDescription;
-
-  document.querySelector("#form-update-artist").addEventListener("submit", updateArtistClicked);
-}
-
-async function updateArtistClicked(event) {
-  const form = event.target;
-  const id = form.getAttribute("data-id");
-  const name = form.name.value;
-  const birthdate = form.birthdate.value;
-  const activeSince = form.activeSince.value;
-  const genres = form.genres.value;
-  const label = form.label.value;
-  const website = form.website.value;
-  const image = form.image.value;
-  const shortDescription = form.shortDescription.value;
-  form.reset();
-  const response = await updateArtist(id, name, birthdate, activeSince, genres, label, website, image, shortDescription);
-  if (response.ok) {
-    showSnackbar("Bruger opdateret");
-    updateUsersGrid();
-  } else {
-    console.log(response.status, response.statusText);
-    showSnackbar("Noget gik galt. Prøv igen");
-  }
-  console.log("knappen virker");
-}
 
 function deleteClicked(artist) {
   console.log("Knappen Virker");
@@ -166,15 +129,6 @@ function showUserModal(artist) {
   document.querySelector("#dialog-image").src = artist.image;
   // show dialog
   document.querySelector("#dialog-artist-info").showModal();
-}
-
-function showSnackbar(message) {
-  const snackbarSelector = document.querySelector(`#snackbar`);
-  snackbarSelector.textContent = `${message}`;
-  snackbarSelector.classList.add("show");
-  setTimeout(() => {
-    snackbarSelector.classList.remove("show");
-  }, 3000);
 }
 
 export { showArtists };

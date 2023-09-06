@@ -24,11 +24,21 @@
   {
     "birthdate": "asd",
     "activeSince": "asd",
-    "label": "asd",
+    "labels": "asd",
     "website": "https://www.twitch.tv/lolworldchampionship",
     "genres": "R&B",
     "shortDescription": "asd",
     "image": "https://media.contentapi.ea.com/content/dam/apex-legends/images/2019/01/apex-featured-image-16x9.jpg.adapt.crop16x9.1023w.jpg",
     "id": 1693953823164
+  },
+  {
+    "birthdate": "2002",
+    "activeSince": "ads",
+    "labels": "",
+    "website": "https://pearljam.com/",
+    "genres": "grunge",
+    "shortDescription": "ads",
+    "image": "https://media.contentapi.ea.com/content/dam/apex-legends/images/2019/01/apex-featured-image-16x9.jpg.adapt.crop16x9.1023w.jpg",
+    "id": 1693998188201
   }
 ]
