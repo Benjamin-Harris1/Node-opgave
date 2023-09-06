@@ -5,7 +5,6 @@ window.addEventListener("load", initApp);
 import { updateArtistGrid, createArtist, deleteArtist, selectArtist, readArtists, updateFavorite } from "./rest.js";
 
 async function initApp() {
-  console.log(artists);
   await updateArtistGrid();
 
   // SEARCH
