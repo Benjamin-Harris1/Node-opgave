@@ -2,14 +2,12 @@
 
 const endpoint = "http://localhost:3000";
 
-import { showArtists } from "./script.js";
+import { showArtists, showSnackbar } from "./script.js";
 
 let selectedArtist;
-let globalArtists;
 
 async function updateArtistGrid() {
   const artists = await readArtists();
-  globalArtists = artists;
   showArtists(artists);
 }
 
@@ -52,7 +50,7 @@ async function createArtist(event) {
     },
   });
   if (response.ok) {
-    updateUsersGrid();
+    showSnackbar("Artist created");
   }
 }
 
@@ -61,7 +59,7 @@ async function deleteArtist(id) {
     method: "DELETE",
   });
   if (response.ok) {
-    updateArtistGrid();
+    showSnackbar("Artist deleted");
   }
 }
 
@@ -104,8 +102,7 @@ async function updateArtist(event) {
     headers: { "Content-Type": "application/json" },
   });
   if (response.ok) {
-    // if success, update the users grid
-    updateArtistGrid();
+    showSnackbar("Artist updated!");
   }
 }
 
@@ -133,7 +130,8 @@ async function updateFavorite(artist) {
     },
   });
   if (response.ok) {
-    updateArtistGrid();
+    showSnackbar("Favorite status updated!");
   }
 }
+
 export { updateArtist, createArtist, deleteArtist, selectArtist, updateArtistGrid, readArtists, updateFavorite };

@@ -2,10 +2,10 @@
 
 window.addEventListener("load", initApp);
 
-import { updateArtistGrid, createArtist, deleteArtist, selectArtist, readArtists, updateFavorite } from "./rest.js";
+import { updateArtistGrid, createArtist, selectArtist, readArtists, updateFavorite, deleteArtist } from "./rest.js";
 
 async function initApp() {
-  await updateArtistGrid();
+  showArtists(artists);
 
   // SEARCH
   document.querySelector("#searchbar").addEventListener("keyup", inputSearchChanged);
@@ -45,7 +45,7 @@ function inputSearchChanged(event) {
 
 function searchUsers(search) {
   search = search.toLowerCase().trim();
-  return artists.filter((artist) => artist.name.toLowerCase().trim().includes(search) || artist.genres.toLowerCase().trim().includes(search));
+  return artists.filter(artist => artist.name.toLowerCase().trim().includes(search) || artist.genres.toLowerCase().trim().includes(search));
 }
 
 // FILTER AND SORT
@@ -57,7 +57,7 @@ function filterByGenre(event) {
     updateArtistGrid();
   } else {
     // Filter the artists based on the selected genre.
-    const filteredArtists = artists.filter((artist) => artist.genres === genreOption);
+    const filteredArtists = artists.filter(artist => artist.genres === genreOption);
     showArtists(filteredArtists);
   }
 }
@@ -72,7 +72,7 @@ function filterByFavorite(event) {
   } else {
     const isFavorite = favoriteOption === "true";
 
-    const filteredArtists = artists.filter((artist) => artist.favorite == isFavorite);
+    const filteredArtists = artists.filter(artist => artist.favorite == isFavorite);
     showArtists(filteredArtists);
   }
 }
@@ -84,13 +84,17 @@ function showCreateUserDialog() {
 
 function showArtists(artists) {
   document.querySelector("#artists").innerHTML = "";
-  for (const artist of artists) {
+  const sortedArtists = artists.sort((a, b) => a.name.localeCompare(b.name));
+  for (const artist of sortedArtists) {
+    const favoriteStatus = artist.favorite ? "Marked as favorite" : "Not favorite";
     const html = /*html*/ `
     <article class="grid-item-user">
   <img src="${artist.image}">
   <h3>${artist.name} </h3>
-  <p>${artist.birthdate}</p>
-<p>${artist.genres}</p>
+  <p>Birthdate: ${artist.birthdate}</p>
+<p> Genre: ${artist.genres}</p>
+<p>${favoriteStatus}</p>
+
 
 
   <div class="btns">
@@ -117,6 +121,7 @@ function showUserModal(artist) {
   document.querySelector("#dialog-birthdate").textContent = artist.birthdate;
   document.querySelector("#dialog-labels").textContent = artist.labels;
   document.querySelector("#dialog-favorite").textContent = artist.favorite;
+
   document.querySelector("#dialog-shortDescription").textContent = artist.shortDescription;
   document.querySelector("#dialog-image").src = artist.image;
   // show dialog
@@ -125,30 +130,35 @@ function showUserModal(artist) {
 
 //DELETE
 function deleteClicked(artist) {
-  console.log("Knappen Virker");
   document.querySelector("#dialog-delete-artist").showModal();
   document.querySelector("#dialog-delete-artist-name").textContent = artist.name;
   document.querySelector("#form-delete-artist").setAttribute("data-id", artist.id);
   document.querySelector("#btn-no").addEventListener("click", function () {
     document.querySelector("#dialog-delete-artist").close();
   });
-  document.querySelector("#form-delete-artist").addEventListener("submit", deleteUserClicked);
+  document.querySelector("#form-delete-artist").addEventListener("submit", deleteArtistClicked);
 }
 
-async function deleteUserClicked(event) {
+async function deleteArtistClicked(event) {
   event.preventDefault();
   const form = event.target;
   const id = form.getAttribute("data-id");
   const response = await deleteArtist(id);
   if (response.ok) {
-    updateUsersGrid();
-    showSnackbar("Bruger slettet");
   } else {
     console.log(response.status, response.statusText);
-    showSnackbar("Noget gik galt. Prøv igen");
   }
   form.reset();
   document.querySelector("#dialog-delete-artist").close();
 }
 
-export { showArtists, updateArtistGrid, filterByGenre };
+function showSnackbar(message) {
+  const snackbarSelector = document.querySelector(`#snackbar`);
+  snackbarSelector.textContent = `${message}`;
+  snackbarSelector.classList.add("show");
+  setTimeout(() => {
+    snackbarSelector.classList.remove("show");
+  }, 10000);
+}
+
+export { showArtists, updateArtistGrid, filterByGenre, showSnackbar };

@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Artists APP</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="shortcut icon" href="delfinpng.png" type="image/x-icon" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet" />
   </head>
   <body>
@@ -21,7 +20,7 @@
       </div>
       <div>
         <label for="searchbar"></label>
-        <input type="search" id="searchbar" placeholder="Søg efter ..." />
+        <input type="search" id="searchbar" placeholder="Search for ..." />
       </div>
       <div>
         <label for="sort">Filter:</label>
@@ -36,7 +35,7 @@
         </select>
         <label for="sort"></label>
         <select id="sortByFavorite" class="sort">
-          <option value="notchosen" selected>Sort by name</option>
+          <option value="notchosen" selected>Sort by favorite</option>
           <option value="true">Favorite</option>
           <option value="false">Not favorite</option>
         </select>
@@ -61,9 +60,9 @@
           <h4 id="dialog-name">Navn</h4>
           <h4 id="dialog-genre">Genre</h4>
           <ul>
-            <li><span id="dialog-birthdate"></span></li>
+            <li>Birthdate: <span id="dialog-birthdate"></span></li>
             <li><span id="dialog-shortDescription"></span></li>
-            <li><span id="dialog-labels"></span></li>
+            <li>Labels: <span id="dialog-labels"></span></li>
             <li>Favorite: <span id="dialog-favorite"></span></li>
           </ul>
         </section>
@@ -85,11 +84,13 @@
         <input type="text" id="create-activeSince" name="activeSince" placeholder="Active since" required />
         <label for="genres">Genre:</label>
         <select name="genres" id="create-genres">
-          <option value="grunge">Grunge</option>
-          <option value="rock">Rock</option>
+          <option value=""></option selected>
+          <option value="Grunge">Grunge</option>
+          <option value="Rock">Rock</option>
           <option value="R&B">R&B</option>
-          <option value="rap">Rap</option>
-          <option value="soul">Soul</option>
+          <option value="Rap">Rap</option>
+          <option value="Soul">Soul</option>
+          <option value="Pop">Pop</option>
         </select>
         <label for="labels">Labels:</label>
         <input type="text" id="create-labels" name="labels" placeholder="Labels" />
@@ -97,9 +98,9 @@
         <input type="url" id="create-website" name="website" placeholder="Website" />
         <label for="image">Image</label>
         <input type="url" id="create-image" name="image" placeholder="Paste IMG URL here" />
-        <button id="form-create-btn">Create artist</button>
         <label for="shortDescription">Short Description</label>
-        <input type="text" id="create-shortDescription" name="shortDescription" placeholder="Create" />
+        <input type="text" id="create-shortDescription" name="shortDescription" placeholder="Type short description" />
+        <button id="form-create-btn">Create artist</button>
       </form>
     </dialog>
 
@@ -118,11 +119,12 @@
         <input type="text" id="update-activeSince" name="activeSince" placeholder="Update" />
         <label for="genres">Genre:</label>
         <select name="genres" id="update-genres">
-          <option value="grunge">Grunge</option>
-          <option value="rock">Rock</option>
+          <option value="Grunge">Grunge</option>
+          <option value="Rock">Rock</option>
           <option value="R&B">R&B</option>
-          <option value="rap">Rap</option>
-          <option value="soul">Soul</option>
+          <option value="Rap">Rap</option>
+          <option value="Soul">Soul</option>
+          <option value="Pop">Pop</option>
         </select>
         <label for="labels">Label:</label>
         <input type="text" id="update-labels" name="labels" placeholder="Update label of artist" />
@@ -132,7 +134,7 @@
         <input type="url" id="update-image" name="image" placeholder="Paste IMG URL here" required />
         <label for="shortDescription">Short description</label>
         <input type="text" id="update-shortDescription" name="shortDescription" placeholder="Update" />
-        <button type="submit" id="form-update-btn">Opdater medlem</button>
+        <button type="submit" id="form-update-btn">Update artist</button>
       </form>
     </dialog>
 

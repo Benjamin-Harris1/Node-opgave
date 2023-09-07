@@ -34,6 +34,11 @@ h3 {
   letter-spacing: 0.1px;
 }
 
+h4 {
+  font-weight: 500;
+  font-weight: bold;
+}
+
 img {
   width: 100%;
   height: auto;
@@ -423,11 +428,9 @@ button.btn-notfavorite:hover {
   background-color: #ea5045;
 }
 
-#create-user-btn:hover,
+#create-artist-btn:hover,
 #form-create-btn:hover,
 #form-update-btn:hover,
-#create-statistics-btn:hover,
-#form-create-statistics-btn:hover,
 #btn-no:hover,
 #btn-yes:hover {
   box-shadow: 0 4px 8px 2px;
@@ -483,8 +486,8 @@ button.btn-notfavorite:hover {
   margin-top: 1em;
 }
 
-#form-create-user,
-#form-update-user,
+#form-create-artist,
+#form-update-artist,
 #form-create-statistics {
   padding: 1em 2em;
   font-size: larger;
@@ -522,8 +525,6 @@ form button {
   padding: 1em 1em 2em;
   text-align: center;
 }*/
-
-/* SNACKBAR STYLING */
 
 #snackbar {
   visibility: hidden;
