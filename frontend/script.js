@@ -5,6 +5,7 @@ window.addEventListener("load", initApp);
 import { updateArtistGrid, createArtist, selectArtist, readArtists, updateFavorite, deleteArtist } from "./rest.js";
 
 async function initApp() {
+  let artists = await readArtists();
   showArtists(artists);
 
   // SEARCH
@@ -21,7 +22,7 @@ async function initApp() {
 }
 
 // Global variables
-let artists = await readArtists();
+let globalArtists = await readArtists();
 let genreOption = "genre";
 let favoriteOption = "notchosen";
 
@@ -45,7 +46,7 @@ function inputSearchChanged(event) {
 
 function searchUsers(search) {
   search = search.toLowerCase().trim();
-  return artists.filter(artist => artist.name.toLowerCase().trim().includes(search) || artist.genres.toLowerCase().trim().includes(search));
+  return globalArtists.filter(artist => artist.name.toLowerCase().trim().includes(search) || artist.genres.toLowerCase().trim().includes(search));
 }
 
 // FILTER AND SORT
@@ -57,7 +58,7 @@ function filterByGenre(event) {
     updateArtistGrid();
   } else {
     // Filter the artists based on the selected genre.
-    const filteredArtists = artists.filter(artist => artist.genres === genreOption);
+    const filteredArtists = globalArtists.filter(artist => artist.genres === genreOption);
     showArtists(filteredArtists);
   }
 }
@@ -72,7 +73,7 @@ function filterByFavorite(event) {
   } else {
     const isFavorite = favoriteOption === "true";
 
-    const filteredArtists = artists.filter(artist => artist.favorite == isFavorite);
+    const filteredArtists = globalArtists.filter(artist => artist.favorite == isFavorite);
     showArtists(filteredArtists);
   }
 }
